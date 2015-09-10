@@ -2,25 +2,43 @@
 <html>
 <head>
 	<title>Convert Time Units</title>
+
+	<style>
+	input[type="number"] {
+	   width:250px;
+	}
+	</style>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 </head>
 <body>
-<p id="demo">JavaScript can change HTML content.</p>
 
-<input id="value_week" type="number"/> Weeks(s) 1 day = 7 days <br>
-<input id="value_day" type="number"/> Days(s) 1 day = 24 hours <br>
-<input id="value_hour" type="number"/> Hour(s) 1 hour = 60 minutes <br>
-<input id="value_min" type="number"/> Minute(s) 1 minutes = 60 seconds<br>
-<input id="value_sec" type="number"/> Second(s) 1 second = 1000 milliseconds <br>
-<input id="value_msec" type="number"/> Millisecond(s) 1 ms = 1000 nanoseconds<br>
-<input id="value_ns" type="number"/> Nanosecond(s)<br>
+<div class="container">
+<H1>Online Time Unit Converter</H1>
 
-<button type="button" onclick="updateButton ()">Click Me!</button>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Calculate!</h3>
+  </div>
+  <div class="panel-body">
+	<input id="value_week" type="number"/> Weeks(s) 1 day = 7 days <br>
+	<input id="value_day" type="number"/> Days(s) 1 day = 24 hours <br>
+	<input id="value_hour" type="number"/> Hour(s) 1 hour = 60 minutes <br>
+	<input id="value_min" type="number"/> Minute(s) 1 minutes = 60 seconds<br>
+	<input id="value_sec" type="number"/> Second(s) 1 second = 1000 milliseconds <br>
+	<input id="value_msec" type="number"/> Millisecond(s) 1 ms = 1000 nanoseconds<br>
+	<input id="value_ns" type="number"/> Nanosecond(s)<br>
+  </div>
+</div>
 
+<p/>
+<p>You can convert values between multiple time units.<br>
+Just enter a value and the remaining values get calculated automatically.<br>
+Calculations are done in Javascript with Javascript number precision (64 bit floating point).</p>
+<p/>
+<p>coded by Martin Schmidt, www.gomasch.de, 2015-09-11</p>
+</div>
 <script type="text/javascript">
-	// at the bottom
-	function updateButton () {
-		document.getElementById('demo').innerHTML = 'Hello JavaScript!';
-	}
+	// Conversion logic
 
 	// this item has been updated
 	function inputUpdated (units, index) {
@@ -29,8 +47,8 @@
 		var currentValue = document.getElementById(name).value;
 
 		// update going up
-		var valueUp = currentValue * units[index][1];
-		for (var i = index + 1; i < units.length; i++) {
+		var valueUp = currentValue / units[index][1];
+		for (var i = index - 1; i >= 0; i--) {
 			name = units[i][0];
 			
 			var item = document.getElementById(name);
@@ -44,14 +62,14 @@
 			item.oninput = oldHook;
 
 			// next
-			valueUp = valueUp * units[i][1];
+			valueUp = valueUp / units[i][1];
 		};
 
 		// update down
 		var valueDown = currentValue;
-		for (var i = index - 1; i > 0; i--) {
+		for (var i = index + 1; i < units.length; i++) {
 			name = units[i][0];
-			valueDown = valueDown / units[i][1];
+			valueDown = valueDown * units[i][1];
 
 			var item = document.getElementById(name);
 
@@ -59,10 +77,16 @@
 			var oldHook = item.oninput;
 			item.oninput = undefined;
 			// update item
-			item.value = valueUp;
+			item.value = valueDown;
 			// restore hook
 			item.oninput = oldHook;
 		};
+	}
+	// this item has been updated
+	function makeUpdateCallback (units, index) {
+		return function() {
+    		inputUpdated(units, index);
+  		};
 	}
 
 	function registerAll () {
@@ -79,14 +103,15 @@
 
 		for (var i = 0; i < units.length; i++) {
 			var name = units[i][0];
-			var factorUp = units[i][1];
-			var index = i;
-			document.getElementById(name).oninput = inputUpdated(units, index);
+			document.getElementById(name).oninput = makeUpdateCallback(units, i);
 		};
 	}
 
 	// run!
 	registerAll ();
+
+	document.getElementById("value_min").value = 15;
+	document.getElementById("value_min").oninput();
 </script>
 </body>
 </html>
