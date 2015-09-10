@@ -1,7 +1,7 @@
 # SPA
 This repository contains some simple, or rather primitive, single page HTML "applications".
 
-Each constists of just one HTML page, that contains some JavaScript that does a useful small feature.
+Each consists of one HTML page which in turn contains some JavaScript that performs a somewhat useful thing.
 * ConvertTime - instant conversion between milliseconds, seconds, and so on.<br>
   [Run in browser](https://rawgit.com/gomasch/SPA/master/ConvertTime/index.html)
 
