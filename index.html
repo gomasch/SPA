@@ -4,14 +4,89 @@
 	<title>Convert Time Units</title>
 </head>
 <body>
-<script type="text/javascript">
-	function updateButton () {
-		document.getElementById('demo').innerHTML = 'Hello JavaScript!';
-	}
-</script>
 <p id="demo">JavaScript can change HTML content.</p>
+
+<input id="value_week" type="number"/> Weeks(s) 1 day = 7 days <br>
+<input id="value_day" type="number"/> Days(s) 1 day = 24 hours <br>
+<input id="value_hour" type="number"/> Hour(s) 1 hour = 60 minutes <br>
+<input id="value_min" type="number"/> Minute(s) 1 minutes = 60 seconds<br>
+<input id="value_sec" type="number"/> Second(s) 1 second = 1000 milliseconds <br>
+<input id="value_msec" type="number"/> Millisecond(s) 1 ms = 1000 nanoseconds<br>
+<input id="value_ns" type="number"/> Nanosecond(s)<br>
 
 <button type="button" onclick="updateButton ()">Click Me!</button>
 
+<script type="text/javascript">
+	// at the bottom
+	function updateButton () {
+		document.getElementById('demo').innerHTML = 'Hello JavaScript!';
+	}
+
+	// this item has been updated
+	function inputUpdated (units, index) {
+		var name = units[index][0];
+
+		var currentValue = document.getElementById(name).value;
+
+		// update going up
+		var valueUp = currentValue * units[index][1];
+		for (var i = index + 1; i < units.length; i++) {
+			name = units[i][0];
+			
+			var item = document.getElementById(name);
+
+			// unhook
+			var oldHook = item.oninput;
+			item.oninput = undefined;
+			// update item
+			item.value = valueUp;
+			// restore hook
+			item.oninput = oldHook;
+
+			// next
+			valueUp = valueUp * units[i][1];
+		};
+
+		// update down
+		var valueDown = currentValue;
+		for (var i = index - 1; i > 0; i--) {
+			name = units[i][0];
+			valueDown = valueDown / units[i][1];
+
+			var item = document.getElementById(name);
+
+			// unhook
+			var oldHook = item.oninput;
+			item.oninput = undefined;
+			// update item
+			item.value = valueUp;
+			// restore hook
+			item.oninput = oldHook;
+		};
+	}
+
+	function registerAll () {
+		// unit: name of input, factor (divisor) to get up
+		var units = [
+			["value_week", 0],
+			["value_day", 7],
+			["value_hour", 24],
+			["value_min", 60],
+			["value_sec", 60],
+			["value_msec", 1000],
+			["value_ns", 1000]
+		];
+
+		for (var i = 0; i < units.length; i++) {
+			var name = units[i][0];
+			var factorUp = units[i][1];
+			var index = i;
+			document.getElementById(name).oninput = inputUpdated(units, index);
+		};
+	}
+
+	// run!
+	registerAll ();
+</script>
 </body>
 </html>
