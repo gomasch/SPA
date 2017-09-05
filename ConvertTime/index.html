@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Convert Time Units</title>
 
 	<style>
-	input[type="number"] {
-	   width:250px;
-	}
+		input[type="number"] {
+		   width:250px;
+		}
 	</style>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 </head>
@@ -16,18 +19,18 @@
 <H1>Online Time Unit Converter</H1>
 
 <div class="panel panel-default">
-  <div class="panel-heading">
-    <h3 class="panel-title">Calculate!</h3>
-  </div>
-  <div class="panel-body">
-	<input id="value_week" type="number"/> Weeks(s) 1 day = 7 days <br>
-	<input id="value_day" type="number"/> Days(s) 1 day = 24 hours <br>
-	<input id="value_hour" type="number"/> Hour(s) 1 hour = 60 minutes <br>
-	<input id="value_min" type="number"/> Minute(s) 1 minutes = 60 seconds<br>
-	<input id="value_sec" type="number"/> Second(s) 1 second = 1000 milliseconds <br>
-	<input id="value_msec" type="number"/> Millisecond(s) 1 ms = 1000 microseconds<br>
-	<input id="value_mms" type="number"/> Microsecond(s)<br>
-  </div>
+	<div class="panel-heading">
+		<h3 class="panel-title">Calculate!</h3>
+	</div>
+		<div class="panel-body">
+		<input id="value_week" type="number"/> Weeks(s) 1 day = 7 days <br>
+		<input id="value_day" type="number"/> Days(s) 1 day = 24 hours <br>
+		<input id="value_hour" type="number"/> Hour(s) 1 hour = 60 minutes <br>
+		<input id="value_min" type="number"/> Minute(s) 1 minutes = 60 seconds<br>
+		<input id="value_sec" type="number"/> Second(s) 1 second = 1000 milliseconds <br>
+		<input id="value_msec" type="number"/> Millisecond(s) 1 ms = 1000 microseconds<br>
+		<input id="value_mms" type="number"/> Microsecond(s)<br>
+	</div>
 </div>
 
 <p/>
@@ -85,8 +88,8 @@ Calculations are done in Javascript with Javascript number precision (64 bit flo
 	// this item has been updated
 	function makeUpdateCallback (units, index) {
 		return function() {
-    		inputUpdated(units, index);
-  		};
+			inputUpdated(units, index);
+		};
 	}
 
 	function registerAll () {
@@ -110,6 +113,7 @@ Calculations are done in Javascript with Javascript number precision (64 bit flo
 	// run!
 	registerAll ();
 
+	// initialize
 	document.getElementById("value_min").value = 15;
 	document.getElementById("value_min").oninput();
 </script>
