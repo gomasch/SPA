@@ -25,8 +25,8 @@
 	<input id="value_hour" type="number"/> Hour(s) 1 hour = 60 minutes <br>
 	<input id="value_min" type="number"/> Minute(s) 1 minutes = 60 seconds<br>
 	<input id="value_sec" type="number"/> Second(s) 1 second = 1000 milliseconds <br>
-	<input id="value_msec" type="number"/> Millisecond(s) 1 ms = 1000 nanoseconds<br>
-	<input id="value_ns" type="number"/> Nanosecond(s)<br>
+	<input id="value_msec" type="number"/> Millisecond(s) 1 ms = 1000 microseconds<br>
+	<input id="value_mms" type="number"/> Microsecond(s)<br>
   </div>
 </div>
 
@@ -98,7 +98,7 @@ Calculations are done in Javascript with Javascript number precision (64 bit flo
 			["value_min", 60],
 			["value_sec", 60],
 			["value_msec", 1000],
-			["value_ns", 1000]
+			["value_mms", 1000]
 		];
 
 		for (var i = 0; i < units.length; i++) {
